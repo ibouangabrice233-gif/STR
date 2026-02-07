@@ -67,13 +67,27 @@ function acceptRequest(id) {
     const requests = JSON.parse(localStorage.getItem('clientRequests')) || [];
     const request = requests.find(r => r.id === id);
     if (request) {
-        const payment = (request.amount * 0.1).toFixed(2);
-        alert(`Commande acceptée pour ${request.name}. Vous devez verser ${payment} € (10% du montant proposé).`);
-        // Remove the request from storage
-        const updatedRequests = requests.filter(r => r.id !== id);
-        localStorage.setItem('clientRequests', JSON.stringify(updatedRequests));
-        // Update display
-        displayClientRequests();
+        const debName = prompt("Entrez votre nom de débrousseur:");
+        if (debName) {
+            const payment = (request.amount * 0.1).toFixed(2);
+            alert(`Commande acceptée pour ${request.name}. Vous devez verser ${payment} € (10% du montant proposé).`);
+            // Store in accepted requests
+            const acceptedRequests = JSON.parse(localStorage.getItem('acceptedRequests')) || [];
+            acceptedRequests.push({ ...request, debName, acceptedAt: new Date().toISOString() });
+            localStorage.setItem('acceptedRequests', JSON.stringify(acceptedRequests));
+            // Update debrousseur count
+            const debrousseurs = JSON.parse(localStorage.getItem('debrousseurs')) || [];
+            const deb = debrousseurs.find(d => d.name === debName);
+            if (deb) {
+                deb.acceptedCount = (deb.acceptedCount || 0) + 1;
+                localStorage.setItem('debrousseurs', JSON.stringify(debrousseurs));
+            }
+            // Remove the request from storage
+            const updatedRequests = requests.filter(r => r.id !== id);
+            localStorage.setItem('clientRequests', JSON.stringify(updatedRequests));
+            // Update display
+            displayClientRequests();
+        }
     }
 }
 
@@ -99,12 +113,38 @@ function displayDebrousseurs() {
     });
 }
 
+// Function to display accepted requests
+function displayAcceptedRequests() {
+    const acceptedRequests = JSON.parse(localStorage.getItem('acceptedRequests')) || [];
+    const container = document.getElementById('accepted-requests');
+    container.innerHTML = '<h3>Commandes Acceptées</h3>';
+    if (acceptedRequests.length === 0) {
+        container.innerHTML += '<p>Aucune commande acceptée pour le moment.</p>';
+        return;
+    }
+    acceptedRequests.forEach(request => {
+        const item = document.createElement('div');
+        item.className = 'accepted-item';
+        item.innerHTML = `
+            <p><strong>Client:</strong> ${request.name}</p>
+            <p><strong>Adresse:</strong> ${request.address}, ${request.city}</p>
+            <p><strong>Téléphone:</strong> ${request.phone}</p>
+            <p><strong>Montant proposé:</strong> ${request.amount} €</p>
+            <p><strong>Débrousseur:</strong> ${request.debName}</p>
+            <p><strong>Accepté le:</strong> ${new Date(request.acceptedAt).toLocaleString()}</p>
+        `;
+        container.appendChild(item);
+    });
+}
+
 // Function to check admin access
 function checkAdmin() {
     const password = prompt("Entrez le mot de passe admin:");
     if (password === "admin") {
         document.getElementById('debrousseurs-list').style.display = 'block';
+        document.getElementById('accepted-requests').style.display = 'block';
         displayDebrousseurs();
+        displayAcceptedRequests();
     } else {
         alert("Accès refusé");
     }
