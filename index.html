@@ -48,12 +48,10 @@
                 <input type="tel" id="client-phone" placeholder="Téléphone" required>
             </div>
             <div class="input-group">
-                <i class="fas fa-credit-card"></i>
-                <select id="client-payment-method" required>
-                    <option value="Airtel Money">Airtel Money</option>
-                </select>
+                <i class="fas fa-euro-sign"></i>
+                <input type="number" id="client-amount" placeholder="Montant proposé (€)" required>
             </div>
-            <button type="submit">Payer les frais du site (500F)</button>
+            <button type="submit">Soumettre la commande</button>
         </form>
         <div id="client-message"></div>
     </section>
@@ -77,18 +75,10 @@
                 <i class="fas fa-phone"></i>
                 <input type="tel" id="deb-phone" placeholder="Téléphone" required>
             </div>
-            <div class="input-group">
-                <i class="fas fa-credit-card"></i>
-                <select id="deb-payment-method" required>
-                    <option value="">Choisir moyen de paiement</option>
-                    <option value="Airtel Money">Airtel Money</option>
-                    <option value="Moov Money">Moov Money</option>
-                </select>
-            </div>
             <button type="submit">S'inscrire</button>
         </form>
         <div id="deb-message"></div>
-        <p>Note : Les débrousseurs paient 10% du montant proposé par le client (50F pour 500F).</p>
+        <p>Note : Les débrousseurs peuvent accepter les commandes des clients et doivent verser 10% du montant proposé.</p>
         <button id="admin-button" onclick="checkAdmin()">Accès Admin - Liste des Débrousseurs</button>
         <div id="debrousseurs-list" style="display: none;"></div>
         <div id="client-requests"></div>
@@ -96,10 +86,7 @@
 
     <footer>
         <p>Contactez-nous : <a href="https://wa.me/062635548"><i class="fab fa-whatsapp"></i> WhatsApp</a> | <a href="mailto:ibouangabrice233@gmail.com"><i class="fas fa-envelope"></i> Email</a></p>
-        <p>Frais du site : 500F par commande.</p>
     </footer>
-
-    <script src="https://checkout.flutterwave.com/v3.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
