@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STR - Commandes en Ligne de Débroussage</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>STR</h1>
+        <nav>
+            <a href="#home">Accueil</a>
+            <a href="#client">Espace Client</a>
+            <a href="#debrousseur">Espace Débrousseur</a>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2>Débroussage Professionnel à Votre Portée</h2>
+            <p>Commandez des services de débroussage en ligne facilement et rapidement.</p>
+            <a href="#client" class="btn-primary">Commander un service</a>
+        </div>
+    </section>
+
+    <section id="client">
+        <h2>Espace Client</h2>
+        <form id="client-form">
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="client-name" placeholder="Nom" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-map-marker-alt"></i>
+                <input type="text" id="client-address" placeholder="Adresse" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-city"></i>
+                <input type="text" id="client-city" placeholder="Ville" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-phone"></i>
+                <input type="tel" id="client-phone" placeholder="Téléphone" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-credit-card"></i>
+                <select id="client-payment-method" required>
+                    <option value="Airtel Money">Airtel Money</option>
+                </select>
+            </div>
+            <button type="submit">Payer les frais du site (500F)</button>
+        </form>
+        <div id="client-message"></div>
+    </section>
+
+    <section id="debrousseur">
+        <h2>Espace Débrousseur</h2>
+        <form id="debrousseur-form">
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="deb-name" placeholder="Nom" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="deb-email" placeholder="Email" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-city"></i>
+                <input type="text" id="deb-city" placeholder="Ville" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-phone"></i>
+                <input type="tel" id="deb-phone" placeholder="Téléphone" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-credit-card"></i>
+                <select id="deb-payment-method" required>
+                    <option value="">Choisir moyen de paiement</option>
+                    <option value="Airtel Money">Airtel Money</option>
+                    <option value="Moov Money">Moov Money</option>
+                </select>
+            </div>
+            <button type="submit">S'inscrire</button>
+        </form>
+        <div id="deb-message"></div>
+        <p>Note : Les débrousseurs paient 10% du montant proposé par le client (50F pour 500F).</p>
+        <button id="admin-button" onclick="checkAdmin()">Accès Admin - Liste des Débrousseurs</button>
+        <div id="debrousseurs-list" style="display: none;"></div>
+        <div id="client-requests"></div>
+    </section>
+
+    <footer>
+        <p>Contactez-nous : <a href="https://wa.me/062635548"><i class="fab fa-whatsapp"></i> WhatsApp</a> | <a href="mailto:ibouangabrice233@gmail.com"><i class="fas fa-envelope"></i> Email</a></p>
+        <p>Frais du site : 500F par commande.</p>
+    </footer>
+
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
